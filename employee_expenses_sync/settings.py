@@ -14,8 +14,6 @@ BOT_NAME = 'employee_expenses_sync'
 SPIDER_MODULES = ['employee_expenses_sync.spiders']
 NEWSPIDER_MODULE = 'employee_expenses_sync.spiders'
 
-DB_CONN = "host='localhost' dbname='foo' user='postgres' password='postgres'"
-
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'employee_expenses_sync (+http://www.yourdomain.com)'

@@ -18,6 +18,6 @@ class TransparenciaSpider(scrapy.Spider):
         driver.close()
 
     def parse(self, response):
-        rows = response.xpath('//table[@id="table_id"]/tbody/tr')
+        rows = response.xpath('//table[@id="table_id"]')
         for row in rows:
             print(row)
