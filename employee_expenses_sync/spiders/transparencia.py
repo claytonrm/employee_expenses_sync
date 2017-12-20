@@ -1,23 +1,23 @@
 import scrapy
-from scrapy import Selector
+from scrapy import Request
 from selenium import webdriver
 
 
 class TransparenciaSpider(scrapy.Spider):
     name = "transparencia"
-    start_url = 'https://transparencia.campogrande.ms.gov.br/servidores/'
+    start_urls = ['https://transparencia.campogrande.ms.gov.br/servidores/']
 
-    def start_requests(self):
-        driver = webdriver.Chrome()
-        driver.get(self.start_url)
-        search_button = driver.find_element_by_xpath('//button[@id="btn-search-servidor"]')
-        self.parse(driver.page_source)
-
-        search_button.click()
-
-        driver.close()
+    def __init__(self):
+        self.driver = webdriver.Chrome()
 
     def parse(self, response):
-        rows = response.xpath('//table[@id="table_id"]')
-        for row in rows:
-            print(row)
+        url = self.start_urls[0]
+        self.driver.get(self.start_urls[0])
+        search_button = self.driver.find_element_by_xpath('//button[@id="btn-search-servidor"]')
+        yield Request(url, callback=self.parse_table)
+        search_button.click()
+
+        self.driver.close()
+
+    def parse_table(self, response):
+        print(response.body)
